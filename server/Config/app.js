@@ -66,6 +66,9 @@ app.use(passport.session());
 let userModel = require ('../models/user'); 
 let user = userModel.User; 
 
+// implement a User Authentication Strategy 
+passport.use(user.createStrategy());
+
 // serialize and deserialize the User info
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser()); 
@@ -94,5 +97,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', { title: 'Error'});
 });
+
 
 module.exports = app;

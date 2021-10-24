@@ -10,12 +10,16 @@
 <div class="row">
     <div class="col-md-offset-3-col-md-11">
         <h1><%= title %></h1>
-        <a href="/book-list/add" class="btn btn-primary" role="button">
+        <% if(typeof displayName == 'string' && displayName) { %>
+            <a href="/book-list/add" class="btn btn-primary" role="button">
             <i class="fas fa-plus-circle"></i> Add a Book</a>
+        <% } %>
         <br>
         <table class="table table-bordered table-striped table-hover">
             <!--Header Row-->
+
             <tr class="d-flex">
+            <% if(typeof displayName == 'string' && displayName) { %>
                 <th class="text-center col-2">Name</th>
                 <th class="text-center col-2">Author</th>
                 <th class="text-center col-2">Published</th>
@@ -23,25 +27,39 @@
                 <th class="text-center col-1">Price</th>
                 <th class="text-center col-1"></th>
                 <th class="text-center col-1"></th>
+            <% } else { %>
+                <th class="text-center col-2">Name</th>
+                <th class="text-center col-2">Author</th>
+                <th class="text-center col-2">Published</th>
+                <th class="text-center col-4">Description</th>
+                <th class="text-center col-1">Price</th>
+            <% } %>
 
             </tr>
             <!--Repeatable Template Row-->
             <% for (let count=0; count<BookList.length;  count++) { %>
                 <tr class="d-flex">
-                    <td class="text-center col-2"><%= BookList[count].name %></td>
-                    <td class="text-center col-2"><%= BookList[count].author %></td>
-                    <td class="text-center col-2"><%= BookList[count].published %></td>
-                    <td class="text-center col-4"><%= BookList[count].description %></td>
-                    <td class="text-center col-1"><%= BookList[count].price %></td>
-                    <td class="text-center col-1">
-                        <a href="/book-list/edit/<%= BookList[count]._id %>" class="btn btn-primary btn-sm">
-                        <i class="fas fa-pencil-alt"></i>Edit</a>
-                    </td>
-                    <td class="text-center col-1">
-                        <a href="/book-list/delete/<%= BookList[count]._id %>" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash-alt">Delete</i>
-                        </a>
-                    </td>
+                <% if(typeof displayName == 'string' && displayName) { %>
+                        <td class="text-center col-2"><%= BookList[count].name %></td>
+                        <td class="text-center col-2"><%= BookList[count].author %></td>
+                        <td class="text-center col-2"><%= BookList[count].published %></td>
+                        <td class="text-center col-4"><%= BookList[count].description %></td>
+                        <td class="text-center col-1"><%= BookList[count].price %></td>
+                        <td class="text-center col-1">
+                            <a href="/book-list/edit/<%= BookList[count]._id %>" class="btn btn-primary btn-sm">
+                            <i class="fas fa-pencil-alt">Edit</i></a>
+                        </td>
+                        <td class="text-center col-1">
+                            <a href="/book-list/delete/<%= BookList[count]._id %>" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt">Delete</i></a>
+                        </td>
+                    <% } else { %>
+                        <td class="text-center col-2"><%= BookList[count].name %></td>
+                        <td class="text-center col-2"><%= BookList[count].author %></td>
+                        <td class="text-center col-2"><%= BookList[count].published %></td>
+                        <td class="text-center col-4"><%= BookList[count].description %></td>
+                        <td class="text-center col-1"><%= BookList[count].price %></td>
+                    <% } %> 
                 </tr>
 
             <% } %> 
